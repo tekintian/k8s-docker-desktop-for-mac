@@ -1,10 +1,10 @@
 #!/bin/bash
 
-file="images"
+file="image_list"
 
 if [ -f "$file" ]
 then
-  echo "$file found."
+  echo "file $file found."
 
   while IFS='=' read -r key value
   do
@@ -15,5 +15,5 @@ then
   done < "$file"
 
 else
-  echo "$file not found."
+  echo "file $file not found."
 fi
