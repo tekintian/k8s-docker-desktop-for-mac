@@ -11,6 +11,7 @@ then
     #echo "${key}=${value}"
     docker pull ${value}
     docker tag ${value} ${key}
+    echo "docker pull ${key} success."
     docker rmi ${value}
   done < "$file"
 
