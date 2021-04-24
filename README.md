@@ -22,17 +22,42 @@ sh  load_images.sh
 
 
 
+如果下载后Docker中的k8还是一直启动中, 可能原因是docker中的其他镜像有影响, 将DockerDesktop工具的 的 Troubleshoot --> Reset to factory defaults 将dockerdesktop重置为初始状态,然后重新执行上面的下载工具下载后在到设置中启用 Kubernetes 一般即可解决.
+
+
+
+
+
+## Docker Engine加速配置
+
+国内的最好设置一下这个加速,否则会非常慢!
+
+~~~json
+{
+  "debug": true,
+  "registry-mirrors": [
+    "https://docker.mirrors.ustc.edu.cn",
+    "https://registry.docker-cn.com",
+    "https://dockerhub.azk8s.cn",
+    "https://reg-mirror.qiniu.com",
+    "https://hub-mirror.c.163.com"
+  ],
+  "features": {
+    "buildkit": true
+  },
+  "experimental": false
+}
+~~~
 
 
 
 
 
 
-`Docker Desktop` 可以方便的启用 `Kubernetes` 集群, 为学习 `Kubernetes` 提供了极大的便利, 但是由于众所周知的原因, 国内的网络下不能很方便的下载 `Kubernetes` 集群所需要的镜像, 导致集群启用失败. 这里提供了一个简单的方法, 利用 [GitHub Actions](https://developer.github.com/actions/creating-github-actions/) 实现 `k8s.gcr.io` 上 `kubernetes` 依赖镜像自动同步到 [Docker Hub](https://hub.docker.com/) 上指定的仓库中。 通过 [load_images.sh](./load_images.sh) 将所需镜像从 `Docker Hub` 的同步仓库中取回，并重新打上原始的`tag`. 镜像对应关系文件可以查看: [images](./images).
 
 说明:
 
-- 当前在 `Docker Desktop (Mac) Version 2.2.2.0 (43066) Channel: edge (Kubernetes: v1.16.5)`上经过测试可用
+- 当前在 `Docker Desktop (Mac) Version v20.10.5 Channel: edge (Kubernetes: v1.19.7)`上经过测试可用
   - [Docker Desktop for Mac Edge release notes](https://docs.docker.com/docker-for-mac/edge-release-notes/)
 - 使用 `Kubeadm` 在`Ubuntu`上安装 `Kubernetes` 请查看 [kubernetes-for-china](https://github.com/maguowei/kubernetes-for-china)
 
